@@ -1,0 +1,43 @@
+<!--202312372 장혁-->
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="mid.css">
+    <script src="mid.js"></script>
+</head>
+<body>
+    <header>장혁</header>
+    <nav></nav>
+    <input type="radio" id="menu1" name="tab" class="menu" checked>
+    <input type="radio" id="menu2" name="tab" class="menu">
+    <input type="radio" id="menu3" name="tab" class="menu">
+    <div id="menuBox">
+        <label for="menu1">menu1</label>
+        <label for="menu2">menu2</label>
+        <label for="menu3">menu3</label>
+    </div>
+    <div id="content">
+        <div id="content1">
+            <div>Story 1: My Task Dashboard</div>
+            <div>
+                <input type="text" size="12" id="taskInput">
+                <input type="date" id="taskDate">
+                <select id="priority">
+                    <option>매우 중요</option>
+                    <option>중요</option>
+                    <option>보통</option>
+                </select>
+            </div>
+            <div>
+                <button onclick="addTask()">추가</button>
+                <button onclick="showList()">목록 보기</button>
+                <button onclick="sortList()">마감순 목록 보기</button>
+            </div>
+            <ul id="taskList"></ul>
+        </div>
+        <div id="content2">Story 2</div>
+        <div id="content3">Story 3</div>
+    </div>
+    <footer>2026 웹 프로그래밍 중간고사</footer>
+</body>
+</html>

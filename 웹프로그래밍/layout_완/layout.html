@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Playwrite+IE:wght@100..400&display=swap" rel="stylesheet">
+	<title>layout</title>
+	<style>
+		#title{font-family: "Playwrite IE", cursive;}
+		*{margin:0;padding:0;}
+		body{width:960px;margin:0 auto;font-family:'Times New Roman',serif;}
+		li{list-style:none;}
+		a{text-decoration:none;}
+		img{border:0;}
+		header{width:960px;height:160px;margin:0 auto;position:relative;}
+		header > #title{position:absolute;top:30px;right:20px;}
+		header > nav{position:absolute;left:0;bottom:0;}
+		nav > ul{display:flex;}
+		nav > ul > li > a{display:block;width:100px;height:20px;padding:10px;text-align:center;line-height:20px;border:1px solid blue;}
+		nav > ul > li > a:hover{color:white;background-color:black;}
+		nav > ul > li:first-child > a{border-radius:15px 0 0 15px;}
+		nav > ul > li:last-child > a{border-radius:0 15px 15px 0;}
+		#content{width:960px;margin:0 auto;display:flex;justify-content:space-between;}
+		div > section{width:720px;height:500px;}
+		aside{width:230px;height:500px;}
+		#fbox{width:100px;height:100px;background-color:yellow;margin-top:120px;position:fixed;left:30%;top:20%;}
+		footer{text-align:center;font-weight:bold;font-size:30px;}
+		aside > input{display:none;}
+		aside > div{display:none;}
+		input:nth-of-type(1):checked ~ div:nth-of-type(1){display:block;}
+		input:nth-of-type(1):checked ~ section.tab-title > label:nth-of-type(1){background-color:white;color:black;}
+		input:nth-of-type(2):checked ~ div:nth-of-type(2){display:block;}
+		input:nth-of-type(2):checked ~ section.tab-title > label:nth-of-type(2){background-color:white;color:black;}
+		section.tab-title{display:flex;}
+		section.tab-title > label{display:block;width:100px;height:30px;line-height:30px;text-align:center;border:1px solid black;background-color:black;color:white;}
+		.item{width:182px;padding:10px;border:1px solid black;border-top:none;}
+		.item a{display:flex;}
+		.description{margin-left:10px;}
+		.description > strong{display:block;width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+	</style>
+</head>
+<body>
+	<header id="main-header">
+		<div id="title">
+			<h1>Weekly Hot Issues</h1>
+		</div>
+		<nav>
+			<ul>
+				<li><a href="#">영화</a></li>
+				<li><a href="#">드라마</a></li>
+				<li><a href="#">TV 예능</a></li>
+				<li><a href="#">다큐멘터리</a></li>
+				<li><a href="#">뉴스</a></li>
+			</ul>
+		</nav>
+	</header>
+	<div id="content">
+		<section>
+			<div id="fbox"></div>
+		</section>
+		<aside>
+			<input id="song"type="radio"name="tab"checked="checked">
+			<input id="movie"type="radio"name="tab">
+			<section class="tab-title">
+				<label for="song">Song Top 5</label>
+				<label for="movie">Movie Top 5</label>
+			</section>
+			<div class="tab-item">
+				<ul>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>싱클레어의 밤</strong></div></a></li>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>뉴질랜드</strong></div></a></li>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>Bubble Love</strong></div></a></li>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>Sunday Morning</strong></div></a></li>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>행복에 대해 내가 생각한 것</strong></div></a></li>
+				</ul>
+			</div>
+			<div class="tab-item">
+				<ul>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>Avengers</strong></div></a></li>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>Iron Man</strong></div></a></li>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>Thor</strong></div></a></li>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>Captain America</strong></div></a></li>
+					<li class="item"><a href="#"><div class="thumbnail"><img src="https://placehold.co/45x45"></div><div class="description"><strong>Spider Man</strong></div></a></li>
+				</ul>
+			</div>
+		</aside>
+	</div>
+	<footer>
+		장혁
+	</footer>
+</body>
+</html>

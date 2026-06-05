@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HTML5 Basic Page</title>
+	<style>
+		*{font-family:"맑은 고딕", Gothic, sans-serif;margin:0;padding:0;}
+		a{text-decoration:none;}
+		li{list-style:none;}
+		body{background-color:#ffe4e1;width:960px;margin:0 auto;}
+		input[type=submit]:focus{background-color:#ffd400;}
+		.aside-list li a{font-size:13px;color:orange;}
+		.aside-list > h3{font-size:15px;color:blue;}
+		#footer > a{font-size:20px;color:#282828;font-weight:bold;}
+		#wrapper{background-color:white;padding:10px 20px;margin-top:40px;}
+		#footer{background-color:#ff9d6e;margin:10px 0 0 0;height:50px;line-height:50px;text-align:center;}
+		#header{padding:40px 50px;}
+		#navigation{margin-bottom:20px;border-top:1px solid #c9c9c9;border-bottom:1px solid #c9c9c9;height:40px;display:flex;justify-content:space-between;align-items:center;}
+		article{padding:0 10px 20px 10px;border-bottom:1px solid #c9c9c9;}
+		.article-header{padding:20px 0;}
+		.outer-menu{display:flex;}
+		.outer-menu-item{display:block;height:30px;width:80px;padding:5px 20px;line-height:30px;text-align:center;}
+		.outer-menu-item:hover{background-color:#ff9d6e;color:#282828;font-weight:bold;}
+		.pull-right{padding:7px;height:26px;display:flex;}
+		.input-search{display:block;height:24px;width:120px;padding-left:10px;border:1px solid #cccccc;border-radius:15px 0 0 15px;}
+		.input-search:focus{background-color:yellow;outline:0;}
+		.input-search-submit{display:block;height:26px;width:50px;border:1px solid #cccccc;border-radius:0 15px 15px 0;}
+		.title{font-size:30px;color:#191919;}
+		.subtitle{font-size:15px;color:#383838;}
+		.article-title{font-size:25px;}
+		.article-date{font-size:13px;}
+		.article-body{font-size:14px;}
+		#main-section{width:710px;}
+		#main-aside{width:200px;}
+		#content{display:flex;justify-content:space-between;}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<header id="header">
+			<h1 class="title">웹 프로그래밍 완전 정복</h1>
+			<h2 class="subtitle">건국대학교 컴퓨터공학부</h2>
+		</header>
+		<nav id="navigation">
+			<div class="pull-left">
+				<ul class="outer-menu">
+					<li class="outer-menu-item">HTML5</li>
+					<li class="outer-menu-item">CSS3</li>
+					<li class="outer-menu-item">JavaScript</li>
+				</ul>
+			</div>
+			<div class="pull-right">
+				<input type=text class="input-search">
+				<input type=submit class="input-search-submit" value="검색">
+			</div>
+		</nav>
+		<div id="content">
+			<section id="main-section">
+				<article>
+					<div class="article-header">
+						<h1 class="article-title">HTML5 개요와 활용</h1>
+						<p class="article-date">2026년 3월 23일</p>
+					</div>
+					<div class="article-body">
+						<img border="0"src="http://placehold.co/430x280"alt="image"width="430"height="280"></a>
+						<p>Lorem ipsum</p>
+					</div>
+				</article>
+				<article>
+					<div class="article-header">
+						<h1 class="article-title">HTML5 개요와 활용</h1>
+						<p class="article-date">2026년 3월 23일</p>
+					</div>
+					<div class="article-body">
+						<img border="0"src="http://placehold.co/430x280"alt="image"width="430"height="280"></a>
+						<p>Lorem ipsum</p>
+					</div>
+				</article>
+			</section>
+			<aside id="main-aside">
+				<div class="aside-list">
+					<h3>카테고리</h3>
+					<ul>
+						<li><a href="#">데이터</a></li>
+						<li><a href="#">데이터</a></li>
+						<li><a href="#">데이터</a></li>
+						<li><a href="#">데이터</a></li>
+						<li><a href="#">데이터</a></li>
+					</ul>
+				</div>
+				<div class="aside-list">
+					<h3>최근 글</h3>
+					<ul>
+						<li><a href="#">데이터</a></li>
+						<li><a href="#">데이터</a></li>
+						<li><a href="#">데이터</a></li>
+						<li><a href="#">데이터</a></li>
+					</ul>
+				</div>
+			</aside>
+		</div>
+		<footer id="footer">
+			<a href="#">Created by 장혁</a>
+		</footer>
+	</div>
+</body>
+</html>

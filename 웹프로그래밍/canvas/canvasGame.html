@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Javascript Projectile Game</title>
+    <link rel="stylesheet" href="canvasGame.css">
+    <script src="canvasGame.js"></script>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="300"></canvas>
+    <div id="control">
+        <label>속도 <input id="velocity" value="15" type="number" min="0" max="100" step="1" /></label>
+        <label>각도 <input id="angle" value="45" type="number" min="0" max="90" step="1" /></label>
+        <button id="fireBtn">발사</button>
+        <div id="score">점수 = 0</div>
+    </div>
+</body>
+</html>

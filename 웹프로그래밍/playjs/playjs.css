@@ -1,0 +1,84 @@
+* {
+	margin: 0; padding: 0;
+}
+body {
+	width:960px;
+    margin: 0 auto;
+}
+li {list-style: none;}
+a {text-decoration: none;}
+img {border: 0;}
+header {	
+	width: 900px; height: 80px;
+	background-color: #f6f9d4;
+	position:fixed;
+	top: 0;
+	padding: 40px 30px 0 30px;
+}
+#title {	
+	height:40px;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	font-family: "Playwrite IE", cursive;
+}
+header > nav {
+	height:40px;
+}
+
+header > nav > ul {
+	display:flex;
+}
+
+#ctime {	
+	width: 250px;
+	height:36px;
+	float:right;
+	border: 1px dashed orange;
+	border-radius: 15px;
+	font-weight: bold;
+	font-family: "Playwrite IE", cursive;
+	text-align: center;
+	
+}
+.main-menu {
+	display:block;
+	width:100px;
+	height:40px;
+	text-align: center;
+	line-height: 40px;
+	color: black;
+	text-decoration:underline;
+}
+
+#content {
+	margin-top:120px;
+	padding: 10px; 
+}
+footer{
+	padding:20px;
+	width:920px;
+	background-color: #d2f299; 
+}
+
+footer p {
+	font-size: 26px;
+	font-weight: bold;
+	text-align: center;
+	font-family: "Playwrite IE", cursive;
+}
+
+.lab {	
+	padding: 10px;
+	border: 1px solid black;
+	margin-top:10px; 
+}
+.lab caption{text-align:left;font-weight:bold;}
+
+.wordButton{display:inline-block;width:150px;}
+#wordList{font-size:24px;font-weight:bold;color:blue;}
+#hangman{text-align:center;}
+#newgamearea{margin-top:2em;}
+#clue, #guessstr{font-family:monospace;font-size:2em;padding:1em;}
+#img{display:inline-block;width:150px;}
+.ctbox{display:inline-block;width:60px;padding:10px;}
