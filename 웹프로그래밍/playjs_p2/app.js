@@ -1,13 +1,34 @@
-const express = require("express")
+const express = require("express"), http = require("http");
+const https = require("https");
+const fs = require("fs");
+const static = require("serve-static");
+const options = {
+    key: fs.readFileSync("cert.key"),
+    cert: fs.readFileSync("cert.crt")
+};
 const app = express();
 app.set("port", process.env.PORT || 8080);
-app.set("host", "172.30.24.133");
+app.set("host", "203.252.166.181");
 app.use(express.static(__dirname));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-const fs = require('fs');
 app.get("/", (req, res) => {
     res.redirect("playjs_p2.html");
+});
+app.get("/rss", (req ,res) => {
+    console.log("rss data requested");
+    const feed = "https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=02&plink=RSSREADER"
+    https.get(feed, (httpres) => {
+        let rss_res = "";
+        httpres.on("data", (chunk) => {
+            rss_res += chunk;
+        });
+        httpres.on("end", () => {
+            res.set("Content-Type", "text/xml");
+            res.send(rss_res);
+            console.log("rss response completed");
+        });
+    });
 });
 app.get('/getNotes', (req, res) => {
     fs.readFile("./data/note.json", "utf-8", (err, data) => {
@@ -42,10 +63,19 @@ app.post('/saveNote', (req, res) => {
         });
     });
 });
-app.listen(app.get("port"), "0.0.0.0", () => {
+http.createServer(app).listen(app.get("port"), app.get("host"), () => {
     console.log("Express server running at" + app.get("port") + app.get("host"));
+});
+const PORT = 8000;
+https.createServer(options, app).listen(PORT, app.get("host"), () => {
+    console.log("Express server running at" + PORT + app.get("port"));
 });
 /*
 get방식 -> query
 post방식 -> body
+
+
+npm install -g mkcert
+mkcert create-ca
+mkcert create-cert
 */

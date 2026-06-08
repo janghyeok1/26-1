@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const gettext2 = document.querySelector("#getText2");
     gettext2.addEventListener("click", getText2);
     //JSON_test
+    getRSS();
 });
 const putName = () => {
     const footer = document.querySelector("#footer");
@@ -178,3 +179,24 @@ const getText2 = async () => {
     textArea.insertAdjacentHTML("beforeend", tableHTML);
 };
 //JSON_test에 표 불러오기
+const getRSS = async () => {
+    const response = await fetch("/rss");
+    const data = await response.text();
+    printNews(data);
+}
+
+const printNews = (data) => {
+    const newsArea = document.querySelector("#news");
+    const parser = new DOMParser();
+    const xmlData = parser.parseFromString(data, "text/xml");
+    const items = [...xmlData.querySelectorAll("item")].slice(0, 10);
+    let newsHTML = `<ul>`;
+    items.forEach(item => {
+        let title = item.querySelector("title").textContent;
+        let date = item.querySelector("pubDate").textContent;
+        let link = item.querySelector("link").textContent;
+        newsHTML += `<li><a href="${link}"target="_blank">${title}</a>(${date})</li>`;
+    });
+    newsHTML += `</ul>`
+    newsArea.insertAdjacentHTML("afterbegin",newsHTML);
+}
