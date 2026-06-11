@@ -1,4 +1,5 @@
-const express = require("express"), http = require("http");
+const express = require("express");
+const http = require("http");
 const https = require("https");
 const fs = require("fs");
 const static = require("serve-static");
@@ -8,16 +9,37 @@ const options = {
 };
 const app = express();
 app.set("port", process.env.PORT || 8080);
-app.set("host", "203.252.166.181");
+app.set("host", "100.88.98.57")
+
 app.use(express.static(__dirname));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+
 app.get("/", (req, res) => {
-    res.redirect("playjs_p2.html");
+    res.redirect("playjs.html");
+})
+app.get("/get_note", (req, res) => {
+    fs.readFile("./data/note.json", "utf8", (err, data) => {
+        if(err) return res.status(500).json();
+        res.type("application/json");
+        res.send(data);
+    });
 });
-app.get("/rss", (req ,res) => {
-    console.log("rss data requested");
-    const feed = "https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=02&plink=RSSREADER"
+app.post("/save_note", (req, res) => {
+    fs.readFile("./data/note.json", "utf8", (err, data) => {
+        if(err) return res.status(500).json();
+        const new_note = req.body;
+        const note = JSON.parse(data);
+        note.push(new_note);
+        const note_str = JSON.stringify(note);
+        fs.writeFile("./data/note.json", note_str, "utf8", (err) => {
+            if(err) return res.status(500).send(err);
+            res.send(note_str);
+        });
+    });
+});
+app.get("/rss", (req, res) => {
+    const feed = "https://kr.investing.com/rss/news_25.rss";
     https.get(feed, (httpres) => {
         let rss_res = "";
         httpres.on("data", (chunk) => {
@@ -26,56 +48,16 @@ app.get("/rss", (req ,res) => {
         httpres.on("end", () => {
             res.set("Content-Type", "text/xml");
             res.send(rss_res);
-            console.log("rss response completed");
-        });
-    });
-});
-app.get('/getNotes', (req, res) => {
-    fs.readFile("./data/note.json", "utf-8", (err, data) => {
-        if(err) {
-            console.log(err);
-            return res.status(500).json({
-                message: "파일 읽기 실패"
-            });
-        }
-        res.type("application/json");
-        res.send(data);
-    });
-});
-app.post('/saveNote', (req, res) => {
-    const newNote = req.body;
-    fs.readFile("./data/note.json", 'utf-8', (err, data) => {
-        if(err){
-            console.log(err);
-            return res.status(500).json({
-                message: "파일 읽기 실패"
-            });
-        }
-        const notes = JSON.parse(data);
-        notes.push(newNote);
-        const notesStr = JSON.stringify(notes);
-        fs.writeFile("./data/note.json", notesStr, 'utf-8', (err) => {
-            if (err) {
-                console.log(err);
-                return res.status(500).send('파일 저장 실패');
-            }
-            res.send(notesStr);
         });
     });
 });
 http.createServer(app).listen(app.get("port"), app.get("host"), () => {
-    console.log("Express server running at" + app.get("port") + app.get("host"));
+    console.log("Express server running at " +  app.get("host") + ":" + app.get("port"));
 });
-const PORT = 8000;
-https.createServer(options, app).listen(PORT, app.get("host"), () => {
-    console.log("Express server running at" + PORT + app.get("port"));
+https.createServer(options, app).listen(8000, app.get("host"), () => {
+    console.log("Express server running at " +  app.get("host") + ":" + 8000);
 });
 /*
-get방식 -> query
-post방식 -> body
-
-
-npm install -g mkcert
-mkcert create-ca
-mkcert create-cert
+req: 요청에 포함된 data
+res: 반환 data
 */
