@@ -1,0 +1,133 @@
+docker run --rm -it -v "C:\Users\K\OneDrive\바탕 화면\시스템프로그래밍:/home/ubuntu" sys2024:2024.2 /bin/bash
+//실행
+
+ls [옵션] [경로]
+[root@localhost~]# ls
+//경로가 없다면 현재 디렉토리를 출력
+[root@localhost~]# ls -a
+//모든 파일 출력(hidden 포함)
+[root@localhost~]# ls -s
+//크기를 함께 출력
+[root@localhost~]# ls -l
+//파일의 모든 정보 출력
+[root@localhost~]# ls -al
+//모든 파일으 정보 출력
+[root@localhost~]# ls /usr
+// /usr 디렉토리 내용 출력
+
+cd [경로]
+[root@localhost~]# cd
+//홈 디렉토리로 이동
+[root@localhost~]# cd ~
+//홈 디렉토리로 이동
+[root@localhost~]# cd ..
+//상위 디렉토리로 이동
+[root@localhost~]# cd /usr/bin
+// /usr/bin 디렉토리로 이동
+
+pwd
+//작업을 수행하는 디렉토리의 절대 경로 형태를 보여줌
+
+mkdir [옵션] [경로]
+[root@localhost~]# mkdir sysprog
+//현재 디렉토리에 sysprog 생성
+[root@localhost~]# mkdir 755 progsys
+//현재 디렉토리에 755 권한으로 progsys 디렉토리 생성
+
+mv
+mv ./file1.txt ./hello.txt
+//file1.txt 파일의 이름을 hello.txt로 변경
+mv ./file1.txt ~
+//file1.txt 파일을 홈 디렉토리로 이동
+
+cat
+cat ./file1.txt
+//텍스트 파일을 읽어서 화면에 출력
+
+tail
+tail ./fiel1.txt
+//텍스트 파일 마지막 부분을 읽어서 화면에 출력
+
+rm
+rm ./file.txt
+//file.txt 파일 삭제
+rm -r ./OneDrive
+//dir디렉토리와 그 안에 있는 데이터 삭제
+
+cp
+cp ./file1.txt ./file2.txt
+//file1.txt 파일을 file2.txt 이름으로 복사
+cp -r ./dir ./copy-dir
+//dir 디렉토리와 그 안에 있는 데이터를 copy-dir 이름으로 복사
+
+파일 권한
+읽기 r 4
+쓰기 w 2
+실행 x 1
+chmod
+소유자 u,그룹 g,제3자 o 순서
+chmod 644 ./test.c
+//소유자 6(읽기,쓰기), 그룹 4(읽기), 제3자 4(읽기) 가능
+chmod ug+r ./test.c
+//소유자와 그룹에 읽기 권한 추가
+chmod o-r ./test.c
+//제3자에 읽기 권한 제거
+
+vim editor
+
+삽입
+i 입력모드 전환, 커서 앞에 삽입
+I 그 라인의 첫 칸에 삽입
+a 커서의 오른쪽에 내용 추가
+A 그 라인의 마지막 문자 뒤에 내용 추가
+o 커서가 있는 행 아래에 새로운 내용 추가
+O 커서가 있는 행 위에 새로운 내용을 추가
+
+복사 및 삭제
+yy 커서가 있는 한 줄 복사
+dd 커서가 있는 한 줄 잘라내기
+p 커서가 있는 행 아래 한 줄 붙여넣기
+5dd 5라인 잘라내기
+dw 한 단어 삭제
+3dw 3 단어 삭제
+
+ckwdk qkRnrl
+%s/"찾을단어"/"바꿀단어"
+
+이동
+h 커서를 한 칸 왼쪽으로 이동
+j 커서를 한 줄 아래로 이동
+k 커서를 한 줄 위로 이동
+l 커서를 한 칸 오른쪽으로 이동
+] 다음 함수 블록 시작지점으로 이동
+[ 이전 함수 블록 시작지점으로 이동
+0 행의 시작 부분으로 이동
+$ 행의 끝 부분으로 이동
+:(line) line번째 줄로 이동
+
+저장 및 종료
+:w 저장
+:q 종료
+:q! 저장 안하고 종료
+:wq 저장 후 종료
+:wq! 강제 저장 후 종료
+
+gcc
+$ gcc -o hw helloworld.c
+$ gcc helloworld.c -o hw
+//c언어 helloworld.c를 hw 이름으로 컴파일
+$ gcc -o helloworld -DMAXLEN=255 helloworld.c
+//#define MAXLEN 255와 같음
+$ gcc -E -o helloworld.i helloworld.C
+//컴파일 과정 중 C preprocessing 까지만 처리하고 나머지는 처리하지 않음
+$ gcc -S helloworld.c
+//전처리된 파일을 어셈블리 파일로 컴파일까지만 수행, helloworld.s 생성
+$ gcc -c helloworld.c
+//컴파일 작업만 수행, 오브젝트 파일 helloworld.o 생성
+$ gcc -c helloworld.c -linclude
+//#include문장에서 지정한 헤더 파일이 들어있는 곳을 정함
+$ gcc -g helloworld.C
+//디버깅 모드로 컴파일, 오류 발생시 소스코드 단위로 tracing할 수 있도록 추가 데이터 삽입, gdb프로그램으로 디버깅할 때보다 수월하게 디버깅 가능
+
+./helloworld
+//helloworld 실행
