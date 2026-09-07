@@ -131,3 +131,81 @@ $ gcc -g helloworld.C
 
 ./helloworld
 //helloworld 실행
+
+
+# 20260907
+process
+실행되고 있는 프로그램의 abstraction
+processor: 프로그램 실행하는 하드웨어
+프로그램 = 정적(소스 코드 등)
+실행하는동안 존재했다가 실행이 끝나면 없어짐
+context: program counter(주소를 나타내는 register), register(cpu 연산 중 일시적 저장공간), main memory;중요한 정보;의 집합
+context switch: process가 돌고 있던 상태 정보(context)를 동결하고, 다른 process에게 그 정보를 줌
+-> 여러 프로그램이 동시에 돌려지는 것처럼 보임(1개 여러번, 여러개 모두 포함)
+
+main memory - virtual address space
+32비트 컴퓨터: 2^32개를 주소;4기가; 표현
+주소는 1바이트 단위로 주소를 매김 -> 총 표현 가능한 주소는 4기가바이트 개의 주소
+0x00000000 ~ 0xfffffff f 8개 * 4비트 = 32
+4기가바이트만큼의 주소를 다 사용하지 않고, 그렇다는 '착각'을 줌
+구성요소
+1gb만큼의 운영체제
+3gb만큼의 프로그램
+실제로 다 쓰지도 않고, 중간을 비워둠
+unused 쓸수없는공간, null값
+read-only data 코드 부분 - static
+read/write data(글로벌 data) - static
+heap malloc 할당 영역, 공간이 부족하면 위로 자람
+그 사이 비는공간, 라이브러리가 실행될 수 있도록 공간 할당
+stack 컴파일러에 의해 생성, 함수가 불려질때마다 밑으로 자람
+kernel 운영체제가 차지, context switch
+0이나 kernel로 접근하면 exception error
+
+context switch
+cpu코어가 하나만 있다고 가정할때, a b c 3개의 process중 한 순간에 하나만 띄울수있음
+다른 process를 돌릴때 os의 스케쥴러가 선행되고 있던 process를 잠깐 멈춤, 동시에 돌아가는 것처럼 보임
+switch마다 돌고있던걸 save(운이 좋으면 메모리, 아니면 디스크), 이후 환원해줘야 하기 떄문에 비용 발생
+너무 드문드문하면 응답성 떨어짐
+너무 자주하면 context switch overhead
+os(kernel)은 긱 프로세스에 기생하는 형태로 존재, 별도의 프로세스는 아지미나 프로세스처럼 동작, timer interrupt에 의해 깨어나 상황을 보고 context switch를 돌림
+
+fork
+새로 생긴 process는 child, 그걸 call한 process는 parent
+child 리턴값 0, parent 리턴값은 child의 pid(process id)
+child parent는 분리된 코드가 아님, 같은 코드에서 다른 분기로 실행
+결과적으로 1 call 2 return
+코드 실행 - fork(운영체제 안으로 들어감) - child process를 하나 만듬(기존 process와 완전히 똑같이 생김, fork 위치부터 시작)
+child는 0리턴 쪽으로, parent는 다른 리턴쪽으로 이동, 이후 각각 실행
+errno user가 선언하지 않는 이미 선언되어 있는 전역변수, 시스템 콜에 error가 발생하면(-1 리턴) 자세한 error의 사유를 말해줌
+마지막에 확인할려고 하면 override되어있을수 있음(코드 1줄1줄 확인해야함)
+error가 없으면 건들지 않음
+errno 값중에는 0이 없다 -> 0을 할당해주면 error가 없었다는 뜻으로 해석 가능
+perror 아예 error 메시지를 찍어줌(prefix를 넣어줘서 어디에서 error 발생했는지 체크 가능)
+fork관점에서의 에러 종류 몇가지
+eagain 프로세스가 너무 많아 더이상 생성불가능(디도스)
+enomem 메모리 공간이 없음
+enosys 지원하지 않는 시스템 콜, 우리는 볼일이 없음
+
+man page
+1 user command
+2 system call
+3 library function
+
+int x = 1;
+pid_t pid = fork();
+if (pid == 0) {
+    printf("child has x = %d", ++x);
+} else {
+    print("parent has x = %d\n", --x);
+}
+printf("bye from process %d with x = %d", getpid(), x);
+case 1(child - parent) 1 2 1
+case 2(parent - child) 1 0 1
+case 3(별개 process) 1 0 2
+결과는 case 3, x는 1로 시작해서 parent와 child가 서로 영향을 주지 않고 각각 return됨
+getpid() child는 자기 pid를, parent는 child의 pid를 반환
+fork마다 분기가 2배로 증가, child와 parent의 실행 순서는 모름
+
+return은 현재 함수를 종료, exit은 process 전체 종료
+atexit() exit함수가 불리면 자동적으로 마무리 용도의 함수 호출, 인자 리턴 둘다 void인 지정된 함수를 호출
+함수이름 = 함수 포인터 = 함수의 시작 주소
