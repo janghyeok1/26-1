@@ -135,7 +135,7 @@ $ gcc -g helloworld.C
 
 # 20260907
 process
-실행되고 있는 프로그램의 abstraction
+실행되고 있는 프로그램의 abstraction instance
 processor: 프로그램 실행하는 하드웨어
 프로그램 = 정적(소스 코드 등)
 실행하는동안 존재했다가 실행이 끝나면 없어짐
@@ -209,3 +209,32 @@ fork마다 분기가 2배로 증가, child와 parent의 실행 순서는 모름
 return은 현재 함수를 종료, exit은 process 전체 종료
 atexit() exit함수가 불리면 자동적으로 마무리 용도의 함수 호출, 인자 리턴 둘다 void인 지정된 함수를 호출
 함수이름 = 함수 포인터 = 함수의 시작 주소
+
+20260909
+zombie 프로세스가 종료되었는데 완전히 사라지지 않은 resource, 다시 가동되지는 않지만 pid 등을 가지고 있음
+reaping parent가 child process(zombie)를 제거, child의 exit status에 대한 정보 가질 수 있음
+parent가 reaping하지 않으면, init process가 처리
+간단한 process는 신경쓸필요 없지만, server 등에서 reaping이 미흡할 시, zombie가 쌓이다가 resource가 꽉 찰 수 있음
+모든 process는 init process에서 fork, 조상 격
+> ./forks 7 & fork7을 background로 실행
+명령마다, 함수마다 process가 생성
+child종료 parent미종료 -> child가 zombie 됨
+child미종료 parent종료 -> child는 정상적으로 실행
+
+wait(인자) 인자가 종료될때까지 기다림, NULL이면 정보 안받음
+#define 매크로함수, stack에 쌓이지 않고 미리 입력해두어, 속도 빨라짐
+waitpid 특정 process 종료 기다림(종료순서는 여전히 모르지만, 종료에 대한 응답 순서 조절 가능)
+
+exec(경로, process 이름, 인자, 인자, ..., 0)
+실패하면 -1, 성공하면 리턴없음
+fork vs exec
+fork process가 2배가 됨(a -> a0 a1)
+exec pid 등 정보는 유지하면서, 아예 다른 process로 덮어씌움(a -> b)
+fork하고 exec하면 exec된 process는 원래 process로 돌아오지 않음
+
+
+
+pid에는 어떤 값이 들어가나?(child parent)
+argc argv[]
+매크로 함수의 장단점
+20 21페이지 한번 찾아보기
