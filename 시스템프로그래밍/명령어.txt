@@ -214,7 +214,7 @@ atexit() exit함수가 불리면 자동적으로 마무리 용도의 함수 호�
 zombie 프로세스가 종료되었는데 완전히 사라지지 않은 resource, 다시 가동되지는 않지만 pid 등을 가지고 있음
 reaping parent가 child process(zombie)를 제거, child의 exit status에 대한 정보 가질 수 있음
 parent가 reaping하지 않으면, init process가 처리
-간단한 process는 신경쓸필요 없지만, server 등에서 reaping이 미흡할 시, zombie가 쌓이다가 resource가 꽉 찰 수 있음
+간단한 process는 신경 쓸 필요 없지만, server 등(parent가 오래 돌아갈 때)에서 reaping해주지 않으면, zombie가 쌓이다가 resource가 꽉 찰 수 있음
 모든 process는 init process에서 fork, 조상 격
 > ./forks 7 & fork7을 background로 실행
 명령마다, 함수마다 process가 생성
@@ -228,7 +228,7 @@ waitpid 특정 process 종료 기다림(종료순서는 여전히 모르지만, 
 exec(경로, process 이름, 인자, 인자, ..., 0)
 실패하면 -1, 성공하면 리턴없음
 fork vs exec
-fork process가 2배가 됨(a -> a0 a1)
+fork process가 2배가 됨(a0 -> a0 a1)
 exec pid 등 정보는 유지하면서, 아예 다른 process로 덮어씌움(a -> b)
 fork하고 exec하면 exec된 process는 원래 process로 돌아오지 않음
 
@@ -238,3 +238,46 @@ pid에는 어떤 값이 들어가나?(child parent)
 argc argv[]
 매크로 함수의 장단점
 20 21페이지 한번 찾아보기
+
+
+# 20260914
+signal
+event의 발생 여부 정도만 전달 가능, 메시지는 전달 불가
+운영체제 kernel을 통해 전달, 직접전달 불가능
+도착되었을때는 기본적으로 pending 보류되어 있음, queuing되지 않음(중복 무시, 발생x상태->발생o상태)
+process는 특정 signal을 block할 수 있음(전달은 되지만, 지금 당장 불려지지 않음)
+
+send
+pcb에 signal 부분을 업데이트
+kernel이 event 발생을 자체적으로 detected한 경우(0으로 나눔, child 종료)
+kill command를 요청한 경우
+system call로 kill 명령어를 보내달라고 요청한 경우
+pcb: process control block(structure 구조체 형태, pc resister memory signal 등에 대한 정보 들어가 있음)
+receive
+ignore 무시
+process 종료
+사용자가 원하는 handler 미리 등록 가능
+
+signal bit vector
+pending: 각 bit마다 고유의 signal 발생 여부가 matching되어 있음
+서로다른 signal을 동시에 전달 가능, 같은 signal을 중복 표현 불가
+blocked: pending과 같은 size, block할 시그널을 표시
+bit operator을 이용해 pending되었고 nonblocked된 signal 판별, pnb = pending & ~blocked
+logical vs bit operator
+signal을 send할 때, cpu는 보낸 쪽에 배정되어 있기 때문에 받는 쪽에서는 받기만 하고 실행이 안됨, 이후 받는 쪽에 cpu가 배정되면 signal 확인하여 실행
+
+pid 개별, pgid 그룹
+kill -그룹pid: 그룹 kill하면 그룹 안의 모든 개별 process kill
+ctrl c sigturm 종료
+ctrl z sigtstp 동결(stop)
+sigstop vs sigtstp tstp은 signal handler를 user가 바꿀수있음
+
+state
+s 보통 입력을 기다리는 상태
+t stop
+r 실행 중
+
+fg 어떤 작업을 foreground로 전환, 인자 없으면 마지막 작업 대상
+
+
+과제(제출x) fork16() fork17() 구현, 강의자료내용 test
