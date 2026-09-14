@@ -8,3 +8,7 @@ void printMatrix(double** A, int m, int n, char name[]);
 //scaleMatrix, multiplyTwoMatrices, addTwoMatrices
 double** transposeMatrix(double** A, int m, int n);
 double** normalizeVector(double** v, int n);
+double calculateLength(double** v, int n);
+double** scaleMatrix(double** A, int m, int n, double c);
+double** multiplyTwoMatrices(double** A, int m, int n, double** B, int l, int k);
+double** addTwoMatrices(double** A, int m, int n, double** B, int l, int k);
