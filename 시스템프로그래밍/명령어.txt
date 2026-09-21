@@ -268,7 +268,7 @@ signal을 send할 때, cpu는 보낸 쪽에 배정되어 있기 때문에 받는
 
 pid 개별, pgid 그룹
 kill -그룹pid: 그룹 kill하면 그룹 안의 모든 개별 process kill
-ctrl c sigturm 종료
+ctrl c sigint 종료
 ctrl z sigtstp 동결(stop)
 sigstop vs sigtstp tstp은 signal handler를 user가 바꿀수있음
 
@@ -279,5 +279,35 @@ r 실행 중
 
 fg 어떤 작업을 foreground로 전환, 인자 없으면 마지막 작업 대상
 
-
 과제(제출x) fork16() fork17() 구현, 강의자료내용 test
+
+20260916
+kill() system call
+kill(pid, SIGINT)
+성공하면 0, 실패하면 -1 리턴
+
+signal() system call
+signal의 delault action을 변경
+signal(signum, function pointer)
+
+pause() system call
+다시 부를 때까지 잠듬
+
+POSIX signal
+real-time signal
+사용법이 복잡, 기존의 standard signal이 미흡한 부분이 있음
+좀더 많은 정보(값)를 보낼 수 있음
+
+20260921
+pc program counter, cpu가 다음 명령을 실행할 주소를 가리킴(main memory의 code 부분), 인텔 x86-64에서는 rip라고 부름
+register 메모리보다, 캐시보다도 훨씬 빠른 메모리 영역
+condition code 조건문에 따른 분기를 구현할때 사용하는 메모리
+memory 메인 메모리, 프로세스를 위한 코드, 데이터, os영역, heap, stack
+16개의 레지스터, 4바이트 단위로 표현할 수 있는 이름 존재
+%rsp는 함수 호출에 사용되는 stack 관련 작업만을 수행
+
+movq src, dest
+source에는 상수($0x400, $-533 등등, 컴파일러가 알아서 인코딩), register, memory((%rax) rax레지스터의 주소)
+메모리 -> 메모리 불가능(with a single instruction)
+addq subq imulq incq decq negq notq
+
