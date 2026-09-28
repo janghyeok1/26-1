@@ -311,3 +311,32 @@ source에는 상수($0x400, $-533 등등, 컴파일러가 알아서 인코딩), 
 메모리 -> 메모리 불가능(with a single instruction)
 addq subq imulq incq decq negq notq
 
+20260928
+simple shell example
+race condition(invocation ordering issue 호출 순서 문제, modification ordering issue 수정 순서 문제)
+blocking in waitpid 무한 대기, 수정 중에 딴놈이 비집고 들어옴
+
+blocking in waidpid
+implicit: kernel이 알아서 명령 실행 중에는 다른 명령 block
+explicit: sigprocmask
+
+modification ordering issue
+addjob deletejob 위아래에 sigprocmask
+
+invocation ordering issue
+sigprocmask -> sigchld -> sigprocmask
+
+async-signal-safety
+
+errno
+
+volatile register에 넣고 재사용하지 말아야 하는 변수, 대신 느려짐
+for() a+=i
+mov (a) %eax
+inc %eax
+mov %eax (a)
+3문장 반복 -> 느려짐, 시작 끝에 mov 놓고 inc만 반복 -> 빠름
+sig_atomic_t 읽기/쓰기할 때 데이터 쪼개지지 않게 함
+
+sigsuspend
+
