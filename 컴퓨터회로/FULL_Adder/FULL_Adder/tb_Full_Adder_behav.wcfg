@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_Full_Adder_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_Full_Adder" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="127.001 ns"></ZoomEndTime>
+      <Cursor1Time time="80.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="276"></NameColumnWidth>
+      <ValueColumnWidth column_width="120"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/tb_Full_Adder/A" type="logic">
+      <obj_property name="ElementShortName">A</obj_property>
+      <obj_property name="ObjectShortName">A</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_Full_Adder/B" type="logic">
+      <obj_property name="ElementShortName">B</obj_property>
+      <obj_property name="ObjectShortName">B</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_Full_Adder/Carry_In" type="logic">
+      <obj_property name="ElementShortName">Carry_In</obj_property>
+      <obj_property name="ObjectShortName">Carry_In</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_Full_Adder/Sum" type="logic">
+      <obj_property name="ElementShortName">Sum</obj_property>
+      <obj_property name="ObjectShortName">Sum</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_Full_Adder/Carry_Out" type="logic">
+      <obj_property name="ElementShortName">Carry_Out</obj_property>
+      <obj_property name="ObjectShortName">Carry_Out</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_Full_Adder/uut/t1" type="logic">
+      <obj_property name="ElementShortName">t1</obj_property>
+      <obj_property name="ObjectShortName">t1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_Full_Adder/uut/t2" type="logic">
+      <obj_property name="ElementShortName">t2</obj_property>
+      <obj_property name="ObjectShortName">t2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_Full_Adder/uut/t3" type="logic">
+      <obj_property name="ElementShortName">t3</obj_property>
+      <obj_property name="ObjectShortName">t3</obj_property>
+   </wvobject>
+</wave_config>
